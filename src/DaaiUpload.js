@@ -1,10 +1,5 @@
 import { uploadExams } from './api/UploadExams.js';
-import {
-  DELETE_ICON,
-  FILE_ICON,
-  SEND_FILES_ICONS,
-  UPLOAD_ICON,
-} from './icons/icons.js';
+import { DELETE_ICON, SEND_FILES_ICONS, UPLOAD_ICON } from './icons/icons.js';
 import {
   applyThemeAttributes,
   parseThemeAttribute,
@@ -109,6 +104,10 @@ class DaaiUpload extends HTMLElement {
           margin-top: 10px;
           max-height: 100px;
           overflow-y: auto;
+          width: 95%;
+           @media (max-width: 600px) {
+                width: 90%;
+            }
         }
 
         li {
@@ -116,19 +115,18 @@ class DaaiUpload extends HTMLElement {
           justify-content: space-around;
           align-items:center;
           font-size:12px;
+          width: 100%;
         }
 
         .error {
           color: red;
-          font-size: 14px;
+          font-size: 12px;
+          z-index: 9999999;
         }
 
         .files {
           display: flex;
           flex-direction: column;
-          width: 80%;
-          border-radius: 8px;
-          gap:5px;
         }
 
         .upload-button {
@@ -183,7 +181,7 @@ class DaaiUpload extends HTMLElement {
             </div>
             <span class="upload">
             <span class="error" id="error"></span>
-              <input type="file" id="fileInput" multiple placeholder='teste'/>
+              <input type="file" id="fileInput" multiple placeholder=''/>
               <ul class="files" id="fileList">Apenas PDF, PNG e JPEG até 10 MB</ul>
           </span>
         <div class='buttons-container'>
@@ -285,24 +283,15 @@ class DaaiUpload extends HTMLElement {
 
   renderFileList() {
     this.fileList.innerHTML = '';
-
-    if (this.files.length < 0) {
+    if (this.files.length === 0) {
       const li = document.createElement('li');
-      const icon = document.createElement('img');
-      icon.src = FILE_ICON;
-      icon.alt = 'file-icon';
-      li.appendChild(icon);
-      li.appendChild(document.createTextNode('testeee'));
+      li.textContent = 'Apenas PDF, PNG e JPEG até 10 MB';
+      this.fileList.appendChild(li);
     }
     if (this.files.length > 0) {
       this.files.forEach((file, index) => {
         const li = document.createElement('li');
-        const icon = document.createElement('img');
-        icon.src = FILE_ICON;
-        icon.alt = 'file-icon';
-        li.appendChild(icon);
         li.appendChild(document.createTextNode(` ${file.name}`));
-
         const deleteButton = document.createElement('button');
         deleteButton.classList.add('delete-button');
         deleteButton.innerHTML = `<img src="${DELETE_ICON}" alt="delete-icon"/>`;
@@ -321,6 +310,9 @@ class DaaiUpload extends HTMLElement {
 
   showError(message) {
     this.errorMessage.textContent = message;
+    setTimeout(() => {
+      this.clearError();
+    }, 3000);
   }
 
   clearError() {
