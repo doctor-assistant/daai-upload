@@ -53,15 +53,6 @@ onde ele for chamado vai ser renderizado nesse modelo:
 apikey = 'aqui você deve passar a chave da api para realizar as requisições';
 ```
 
-### Formato metadata
-
-```html
-// ⚠️ Essse deve ser o formato
-<body>
-  <daai-upload apiKey="YOUR_API_KEY"> </daai-upload>
-</body>
-```
-
 Após a instalação do componente e a sua inclusão no código, será possível customizá-lo passando as props correspondentes. Caso as props não sejam fornecidas, ele utilizará o layout padrão. 🎨
 
 #### 📂 Props que você pode passar para o componente:
@@ -126,15 +117,15 @@ Essa propriedade altera a cor das `bordas` do componente.
 
 #### text-badge-color
 
-Essa propriedade altera a cor dos textos do componente.
+Essa propriedade altera a `cor dos textos` do componente.
 
 #### button-send-files
 
-Essa propriedade altera a cor do botão de enviar os arquivos.
+Essa propriedade altera a cor do botão de `enviar os arquivos`.
 
 #### button-search-files
 
-Essa propriedade altera a cor do botão de buscar os arquivos.
+Essa propriedade altera a cor do botão de `buscar os arquivos`.
 
 #### onSuccess
 
