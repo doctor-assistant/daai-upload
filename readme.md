@@ -15,7 +15,7 @@ O componente é um sistema de integração voltado para empresas de saúde, como
 #### Benefícios
 
 - Automatização de processos dentro da empresa
-- Registro do áudio e processamento de entrega de acordo com a necessidade específica
+- Sumarização de exames e processamento de entrega de acordo com a necessidade específica
 - Facilidade de customização de acordo com a interface da empresa (whitelabel)
 - Ganho de produtividade: não há necessidade de utilizar vários sistemas em paralelo
 
