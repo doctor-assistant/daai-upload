@@ -10,7 +10,7 @@
 
 ## Introdução
 
-O componente é um sistema de integração para empresas de saúde, como clínicas, sistemas de prontuário eletrônico e empresas que possuem soluções próprias. Seu objetivo é capturar o registro das consultas por meio do áudio entre o profissional de saúde e o paciente via API, entregar os resultados da consulta através da transcrição.
+O componente é um sistema de integração voltado para empresas de saúde, como clínicas, sistemas de prontuário eletrônico e empresas com soluções próprias. Sua função é realizar o upload de exames, extrair dados com inteligência artificial e retornar um sumário estruturado das informações extraídas do exame.
 
 #### Benefícios
 
