@@ -127,6 +127,7 @@ class DaaiUpload extends HTMLElement {
         .files {
           display: flex;
           flex-direction: column;
+          align-items:center;
         }
 
         .upload-button {
@@ -234,7 +235,7 @@ class DaaiUpload extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ['theme', 'onSuccess', 'onError', 'apiKey', 'modeApi'];
+    return ['theme', 'onSuccess', 'onError', 'apiKey'];
   }
 
   connectedCallback() {
@@ -261,7 +262,9 @@ class DaaiUpload extends HTMLElement {
     }
     applyThemeAttributes(this.theme, this);
     this.apiKey = this.getAttribute('apikey');
-    this.modeApi = this.getAttribute('modeApi');
+
+    const apikey = this.getAttribute('apikey');
+    this.modeApi = apikey && apikey.startsWith('PRODUCTION') ? 'prod' : 'dev';
     this.onSuccess = this.getAttribute('onSuccess')
       ? new Function('return ' + this.getAttribute('onSuccess'))()
       : null;
@@ -341,23 +344,22 @@ class DaaiUpload extends HTMLElement {
     if (!this.files.length) {
       return this.showError('Nenhum arquivo selecionado para upload.');
     }
-
     this.fileList.innerHTML = '<span>Processando arquivos...</span>';
 
-    try {
-      await Promise.all(
-        this.files.map((file) =>
-          uploadExams(file, this.apiKey, this.onSuccess, this.onError)
+    await Promise.all(
+      this.files.map((file) =>
+        uploadExams(
+          this,
+          file,
+          this.apiKey,
+          this.onSuccess,
+          this.onError,
+          this.modeApi
         )
-      );
-    } catch (error) {
-      this.showError('Erro ao salvar os arquivos. Tente novamente.');
-    } finally {
-      this.fileList.innerHTML =
-        '<span>Upload concluído, insira novos arquivos</span>';
-      this.files = [];
-      this.uploadButton.style.display = 'block';
-    }
+      )
+    );
+    this.files = [];
+    this.uploadButton.style.display = 'block';
   }
 }
 customElements.define('daai-upload', DaaiUpload);
